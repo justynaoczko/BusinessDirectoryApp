@@ -1,4 +1,4 @@
-# Katalog Firm / Wizytówki Biznesowe
+# Katalog Firm
 
 ## Opis projektu
 
