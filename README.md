@@ -2,7 +2,7 @@
 
 ## Opis projektu
 
-Aplikacja webowa umożliwiająca przeglądanie katalogu firm oraz zarządzanie wizytówkami biznesowymi poprzez panel administracyjny.
+Aplikacja webowa do przeglądania katalogu firm oraz zarządzania wizytówkami biznesowymi poprzez panel administracyjny.
 
 ## Funkcjonalności
 
@@ -10,7 +10,7 @@ Aplikacja webowa umożliwiająca przeglądanie katalogu firm oraz zarządzanie w
 * Wyszukiwarka
 * Kategorie firm
 * Wizytówki firm
-* Panel administracyjny (CRUD)
+* Panel administracyjny
 * Logowanie administratora
 
 ## Technologie
