@@ -1,4 +1,3 @@
-// Cienka warstwa do komunikacji z backendem
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000'
 const TOKEN_KEY = 'kf_admin_token'
 
@@ -49,7 +48,6 @@ async function request(path, { method = 'GET', body, auth = false } = {}) {
 	return data
 }
 
-// --- Publiczne ---
 export const getFirmy = (search, kategoriaId) => {
 	const params = new URLSearchParams()
 	if (search) params.set('search', search)
@@ -60,13 +58,11 @@ export const getFirmy = (search, kategoriaId) => {
 
 export const getKategorie = () => request('/api/kategorie')
 
-// --- Auth ---
 export const login = (username, password) =>
 	request('/api/auth/login', { method: 'POST', body: { username, password } })
 
 export const me = () => request('/api/auth/me', { auth: true })
 
-// --- Admin / CRUD firm ---
 export const createFirma = data => request('/api/firmy', { method: 'POST', body: data, auth: true })
 
 export const updateFirma = (id, data) =>

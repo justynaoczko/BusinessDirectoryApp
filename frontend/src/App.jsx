@@ -4,13 +4,10 @@ import AdminLogin from './AdminLogin'
 import AdminPanel from './AdminPanel'
 import { getToken, me, setToken } from './api'
 
-// Bardzo proste przełączanie widoków - bez react-router
-// view: 'public' | 'login' | 'admin'
 function App() {
 	const [view, setView] = useState('public')
 	const [username, setUsername] = useState(null)
 
-	// Przy starcie - jeśli mamy token, spróbuj zwalidować
 	useEffect(() => {
 		if (!getToken()) return
 		me()
@@ -31,7 +28,6 @@ function App() {
 	}
 
 	if (view === 'admin') {
-		// Jeśli nie zalogowany - przekieruj do logowania
 		if (!username) {
 			return (
 				<AdminLogin

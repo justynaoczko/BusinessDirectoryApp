@@ -9,14 +9,12 @@ function PublicView({ onAdminClick }) {
 	const [loading, setLoading] = useState(true)
 	const [error, setError] = useState(null)
 
-	// Załaduj kategorie raz
 	useEffect(() => {
 		getKategorie()
 			.then(setKategorie)
 			.catch(e => setError(e.message))
 	}, [])
 
-	// Pobierz firmy gdy zmieni się filtr (debounce 300ms)
 	useEffect(() => {
 		setLoading(true)
 		const timer = setTimeout(() => {

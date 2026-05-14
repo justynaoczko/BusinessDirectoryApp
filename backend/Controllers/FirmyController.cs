@@ -18,7 +18,6 @@ public class FirmyController : ControllerBase
         _db = db;
     }
 
-    // GET /api/firmy?search=auto&kategoriaId=4
     [HttpGet]
     public async Task<ActionResult<IEnumerable<FirmaDto>>> GetAll(
         [FromQuery] string? search,
@@ -48,7 +47,6 @@ public class FirmyController : ControllerBase
         return Ok(firmy);
     }
 
-    // GET /api/firmy/5
     [HttpGet("{id:int}")]
     public async Task<ActionResult<FirmaDto>> GetOne(int id)
     {
@@ -60,7 +58,6 @@ public class FirmyController : ControllerBase
         return Ok(MapToDto(firma));
     }
 
-    // POST /api/firmy (admin)
     [HttpPost]
     [Authorize(Roles = "Admin")]
     public async Task<ActionResult<FirmaDto>> Create([FromBody] FirmaCreateDto dto)
@@ -87,7 +84,6 @@ public class FirmyController : ControllerBase
         return CreatedAtAction(nameof(GetOne), new { id = firma.Id }, MapToDto(firma));
     }
 
-    // PUT /api/firmy/5 (admin)
     [HttpPut("{id:int}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Update(int id, [FromBody] FirmaUpdateDto dto)
@@ -113,7 +109,6 @@ public class FirmyController : ControllerBase
         return NoContent();
     }
 
-    // DELETE /api/firmy/5 (admin)
     [HttpDelete("{id:int}")]
     [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
