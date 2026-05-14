@@ -86,6 +86,96 @@ Frontend startuje pod adresem **http://localhost:5173**.
 | POST   | `/api/auth/login`                 | publiczny   |
 | GET    | `/api/auth/me`                    | admin (JWT) |
 
+## Krok po kroku — pierwsze uruchomienie projektu lokalnie (Windows)
+
+Instrukcja dla osoby, która klonuje projekt po raz pierwszy.
+
+### 1. Zainstaluj wymagane narzędzia
+
+- **.NET SDK 8.0 lub nowsze** — https://dotnet.microsoft.com/download
+  Po instalacji zrestartuj terminal i sprawdź:
+  ```
+  dotnet --version
+  ```
+  Powinno wypisać np. `8.0.x`.
+- **Node.js 18+ (z npm)** — https://nodejs.org (wersja LTS).
+  Po instalacji sprawdź:
+  ```
+  node --version
+  npm --version
+  ```
+
+### 2. Pobierz projekt
+
+```
+git clone <adres-repozytorium>
+cd Business_Directory_App
+```
+
+### 3. (Tylko Windows / PowerShell) Odblokuj uruchamianie skryptów npm
+
+Domyślna polityka PowerShella blokuje `npm.ps1`. Otwórz **PowerShell** i wykonaj raz:
+```
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+```
+Zatwierdź wpisując `T`. **Zamknij i otwórz PowerShell ponownie**, żeby zmiana zadziałała.
+
+Alternatywa: zamiast `npm` używaj `npm.cmd`, albo uruchamiaj komendy w zwykłym `cmd` (Wiersz polecenia) zamiast PowerShella.
+
+### 4. Uruchom backend (terminal nr 1)
+
+```
+cd backend
+dotnet restore
+dotnet run
+```
+
+Co się stanie:
+- pobiorą się paczki NuGet (przy pierwszym `dotnet restore`),
+- utworzy się plik bazy `backend/businessdirectory.db`,
+- baza zostanie wypełniona przykładowymi firmami i adminem (`admin` / `admin123`),
+- otworzy się przeglądarka na **http://localhost:5000/swagger**.
+
+W terminalu zobaczysz `Now listening on: http://localhost:5000` — **zostaw ten terminal otwarty**, backend musi działać przez cały czas.
+
+### 5. Uruchom frontend (terminal nr 2, równolegle)
+
+Otwórz **drugi** terminal (PowerShell lub cmd):
+```
+cd frontend
+npm install
+npm run dev
+```
+
+Co się stanie:
+- `npm install` pobierze paczki Reacta, Vite, Tailwind (zajmuje 1–2 minuty przy pierwszym razie),
+- `npm run dev` uruchomi serwer deweloperski Vite,
+- w terminalu pojawi się linia `Local: http://localhost:5173/`.
+
+Otwórz **http://localhost:5173** w przeglądarce.
+
+### 6. Sprawdź że wszystko działa
+
+1. Strona pokazuje 6 firm — to dane pobrane z backendu.
+2. Wpisz `auto` w wyszukiwarkę — pokaże się tylko Auto-Fix.
+3. Wybierz kategorię z listy rozwijanej — lista się zawęża.
+4. Kliknij **Panel administracyjny** (prawy górny róg).
+5. Zaloguj się: login `admin`, hasło `admin123`.
+6. Dodaj firmę przez formularz, edytuj, usuń.
+7. Wróć do katalogu — zobaczysz zmiany.
+
+### 7. Zatrzymanie
+
+W każdym terminalu naciśnij **Ctrl + C** żeby zatrzymać dany proces.
+
+### Najczęstsze problemy
+
+- **`npm : cannot be loaded because running scripts is disabled`** → wykonaj krok 3.
+- **`dotnet: command not found`** → nie zainstalowałeś .NET SDK lub nie zrestartowałeś terminala po instalacji.
+- **„Failed to fetch" / czerwony banner na froncie** → backend nie działa, sprawdź terminal nr 1.
+- **Port 5000 lub 5173 zajęty** → zamknij inną aplikację która go używa, albo zmień port w `backend/Properties/launchSettings.json` / `frontend/vite.config.js`.
+- **Chcesz zresetować dane** → zatrzymaj backend, usuń plik `backend/businessdirectory.db`, uruchom backend ponownie — baza odtworzy się ze świeżymi danymi seed.
+
 ## Autorzy
 
 - Justyna Oczko
