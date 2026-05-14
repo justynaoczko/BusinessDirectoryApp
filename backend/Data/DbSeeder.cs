@@ -7,7 +7,6 @@ public static class DbSeeder
 {
     public static async Task SeedAsync(ApplicationDbContext db, IConfiguration config)
     {
-        // Tworzy bazę jeśli nie istnieje. W projekcie studenckim wystarczające - nie używamy migracji.
         await db.Database.EnsureCreatedAsync();
 
         if (!await db.Kategorie.AnyAsync())

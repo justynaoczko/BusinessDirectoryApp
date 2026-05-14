@@ -8,14 +8,11 @@ using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// --- DB (SQLite) ---
 builder.Services.AddDbContext<ApplicationDbContext>(opt =>
     opt.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// --- Services ---
 builder.Services.AddSingleton<TokenService>();
 
-// --- JWT ---
 var jwtKey = builder.Configuration["Jwt:Key"] ?? throw new InvalidOperationException("Brak Jwt:Key w appsettings.json");
 var jwtIssuer = builder.Configuration["Jwt:Issuer"];
 var jwtAudience = builder.Configuration["Jwt:Audience"];
@@ -42,7 +39,6 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-// --- CORS dla frontendu Vite ---
 const string FrontendCors = "FrontendCors";
 builder.Services.AddCors(options =>
 {
@@ -57,7 +53,6 @@ builder.Services.AddCors(options =>
     });
 });
 
-// --- Controllers + Swagger ---
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
@@ -83,7 +78,6 @@ builder.Services.AddSwaggerGen(c =>
 
 var app = builder.Build();
 
-// --- Migracje + seeding ---
 using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
